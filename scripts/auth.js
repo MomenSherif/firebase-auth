@@ -1,33 +1,18 @@
 // track auth state
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    // update menu if logged in
-    document
-      .querySelectorAll('.logged-out')
-      .forEach(el => el.classList.add('hide'));
+    setupUI(user);
 
-    document
-      .querySelectorAll('.logged-in')
-      .forEach(el => el.classList.remove('hide'));
-
-    // get guides data from firestore
-    db.collection('guides')
-      .get()
-      // returns querySnapshot has docs array
-      .then(({ docs }) => {
+    // get guides data from firestore in realtime
+    db.collection('guides').onSnapshot(
+      ({ docs }) => {
         setupGuides(docs.map(doc => doc.data()));
-      });
+      },
+      error => console.log(error.message)
+    );
   } else {
-    // update menu if not logged in
-    document
-      .querySelectorAll('.logged-in')
-      .forEach(el => el.classList.add('hide'));
-
-    document
-      .querySelectorAll('.logged-out')
-      .forEach(el => el.classList.remove('hide'));
-
     // User signed out
+    setupUI();
     setupGuides([]);
   }
 });
@@ -69,4 +54,18 @@ loginForm.addEventListener('submit', e => {
 // logout
 document.getElementById('logout').addEventListener('click', e => {
   auth.signOut();
+});
+
+// add a guide
+const createForm = document.getElementById('create-form');
+createForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const title = createForm.title.value.trim();
+  const content = createForm.content.value.trim();
+
+  M.Modal.getInstance(document.getElementById('modal-create')).close();
+  createForm.reset();
+
+  // Add guide to firebase guides collection
+  db.collection('guides').add({ title, content });
 });

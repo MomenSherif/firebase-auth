@@ -16,19 +16,19 @@
         <img src="img/logo.svg" style="width: 180px; margin-top: 10px;">
       </a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
           </li>
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#" class="grey-text" id="logout">Logout</a>
           </li>
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out hide">
             <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out hide">
             <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
           </li>
         </span>
@@ -86,11 +86,11 @@
       <h4>Create Guide</h4><br />
       <form id="create-form">
         <div class="input-field">
-          <input type="text" id="title" required>
+          <input type="text" id="title" name="title" required>
           <label for="title">Guide Title</label>
         </div>
         <div class="input-field">
-          <textarea id="content" class="materialize-textarea" required></textarea>
+          <textarea id="content" class="materialize-textarea" name="content" required></textarea>
           <label for="content">Guide Content</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Create</button>
