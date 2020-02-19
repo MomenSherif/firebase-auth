@@ -7,7 +7,17 @@ function setupUI(user) {
   if (user) {
     loggedOutList.forEach(el => el.classList.add('hide'));
     loggedInList.forEach(el => el.classList.remove('hide'));
-    accountDetails.textContent = `Logged in as ${user.email}`;
+    // get user bio
+    db.collection('users')
+      .doc(user.uid)
+      .get()
+      .then(userData => {
+        const html = `
+        <div>Logged in as ${user.email}</div>
+        <div>${userData.data().bio}</div>
+       `;
+        accountDetails.innerHTML = html;
+      });
   } else {
     loggedOutList.forEach(el => el.classList.remove('hide'));
     loggedInList.forEach(el => el.classList.add('hide'));
@@ -27,7 +37,7 @@ function setupGuides(guides) {
       })
       .join('');
   } else {
-    guidesList.innerHTML = '<h4 class="center-align">Login for Guides</h4>';
+    guidesList.innerHTML = '<h4 class="center-align">Login to view Guides</h4>';
   }
 }
 

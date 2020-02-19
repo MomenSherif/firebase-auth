@@ -23,16 +23,26 @@ signUpForm.addEventListener('submit', e => {
   e.preventDefault();
   const email = signUpForm.email.value.trim();
   const password = signUpForm.password.value.trim();
+  const bio = signUpForm.bio.value.trim();
 
   // after signup firebase login user automatically
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then(cred => {
-      console.log(cred);
+    .then(({ user }) => {
+      // add user to users collection
+      console.log(user);
+      return db
+        .collection('users')
+        .doc(user.uid)
+        .set({
+          bio
+        });
+    }) // user added successfully
+    .then(() => {
       M.Modal.getInstance(document.getElementById('modal-signup')).close();
       signUpForm.reset();
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error.message));
 });
 
 // signin
