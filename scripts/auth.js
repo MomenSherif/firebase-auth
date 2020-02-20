@@ -30,7 +30,6 @@ signUpForm.addEventListener('submit', e => {
     .createUserWithEmailAndPassword(email, password)
     .then(({ user }) => {
       // add user to users collection
-      console.log(user);
       return db
         .collection('users')
         .doc(user.uid)
