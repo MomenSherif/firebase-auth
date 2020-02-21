@@ -1,7 +1,25 @@
+// add admin cloud function
+const adminForm = document.querySelector('.admin-actions');
+adminForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const adminEmail = adminForm['admin-email'].value.trim();
+  // reference to cloud function
+  const addAdminRole = functions.httpsCallable('addAdminRole');
+  addAdminRole({ email: adminEmail }).then(res => {
+    console.log(res);
+  });
+
+  adminForm.reset();
+});
+
 // track auth state
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    setupUI(user);
+    // check for user admin custom claim
+    user.getIdTokenResult().then(idTokenResult => {
+      user.admin = idTokenResult.claims.admin;
+      setupUI(user);
+    });
 
     // get guides data from firestore in realtime
     db.collection('guides').onSnapshot(

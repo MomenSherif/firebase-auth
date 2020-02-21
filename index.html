@@ -22,7 +22,7 @@
           <li class="logged-in hide">
             <a href="#" class="grey-text" id="logout">Logout</a>
           </li>
-          <li class="logged-in hide">
+          <li class="admin hide">
             <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
           </li>
           <li class="logged-out hide">
@@ -35,6 +35,12 @@
       </ul>
     </div>
   </nav>
+
+  <!-- ADMIN ACTIONS -->
+  <form class="center-align admin-actions admin hide" style="margin: 40px auto; max-width: 300px;">
+    <input type="email" placeholder="User email" name="admin-email" required>
+    <button class="btn-small yellow darken-2 z-depth-0">Make admin</button>
+  </form>
 
   <!-- SIGN UP MODAL -->
   <div id="modal-signup" class="modal">
@@ -112,6 +118,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-functions.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -135,6 +142,7 @@
 
   const auth = firebase.auth();
   const db = firebase.firestore();
+  const functions = firebase.functions();
 </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

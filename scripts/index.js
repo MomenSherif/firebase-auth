@@ -2,11 +2,13 @@ const guidesList = document.querySelector('.guides');
 const loggedOutList = document.querySelectorAll('.logged-out');
 const loggedInList = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
+const adminItems = document.querySelectorAll('.admin');
 
 function setupUI(user) {
   if (user) {
-    loggedOutList.forEach(el => el.classList.add('hide'));
-    loggedInList.forEach(el => el.classList.remove('hide'));
+    if (user.admin) {
+      adminItems.forEach(item => item.classList.remove('hide'));
+    }
     // get user bio
     db.collection('users')
       .doc(user.uid)
@@ -15,13 +17,18 @@ function setupUI(user) {
         const html = `
         <div>Logged in as ${user.email}</div>
         <div>${userData.data().bio}</div>
+        ${user.admin ? '<div class="red-text">Admin</div>' : ''}
        `;
         accountDetails.innerHTML = html;
       });
+
+    loggedOutList.forEach(el => el.classList.add('hide'));
+    loggedInList.forEach(el => el.classList.remove('hide'));
   } else {
+    accountDetails.textContent = '';
     loggedOutList.forEach(el => el.classList.remove('hide'));
     loggedInList.forEach(el => el.classList.add('hide'));
-    accountDetails.textContent = '';
+    adminItems.forEach(item => item.classList.add('hide'));
   }
 }
 
