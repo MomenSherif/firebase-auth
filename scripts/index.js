@@ -17,7 +17,7 @@ function setupUI(user) {
         const html = `
         <div>Logged in as ${user.email}</div>
         <div>${userData.data().bio}</div>
-        ${user.admin ? '<div class="red-text">Admin</div>' : ''}
+        ${user.admin ? '<div class="pink-text">Admin</div>' : ''}
        `;
         accountDetails.innerHTML = html;
       });

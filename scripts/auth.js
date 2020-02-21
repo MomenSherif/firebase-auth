@@ -58,8 +58,11 @@ signUpForm.addEventListener('submit', e => {
     .then(() => {
       M.Modal.getInstance(document.getElementById('modal-signup')).close();
       signUpForm.reset();
+      signUpForm.querySelector('.error').textContent = '';
     })
-    .catch(error => console.log(error.message));
+    .catch(error => {
+      signUpForm.querySelector('.error').textContent = error.message;
+    });
 });
 
 // signin
@@ -74,8 +77,11 @@ loginForm.addEventListener('submit', e => {
     .then(cred => {
       M.Modal.getInstance(document.getElementById('modal-login')).close();
       loginForm.reset();
+      loginForm.querySelector('.error').textContent = '';
     })
-    .catch(err => console.log(err));
+    .catch(error => {
+      loginForm.querySelector('.error').textContent = error.message;
+    });
 });
 
 // logout
